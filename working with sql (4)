@@ -1,0 +1,297 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "92318364-886d-4918-8256-81d48747e798",
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<mysql.connector.connection.MySQLConnection object at 0x000001A91DEF7C18>\n",
+      "('information_schema',)\n",
+      "('mysql',)\n",
+      "('new_schema',)\n",
+      "('new_schema1',)\n",
+      "('performance_schema',)\n",
+      "('sakila',)\n",
+      "('sys',)\n",
+      "('test',)\n",
+      "('test2',)\n"
+     ]
+    }
+   ],
+   "source": [
+    "import mysql.connector\n",
+    "mydb = mysql.connector.connect(\n",
+    "    host= \"localhost\",\n",
+    "    port = 3306,\n",
+    "    user=\"root\",\n",
+    "    password=\"Sajan@123\"\n",
+    ")\n",
+    "print(mydb)\n",
+    "mycursor = mydb.cursor()\n",
+    "mycursor.execute(\"SHOW DATABASES\")\n",
+    "for x in mycursor:\n",
+    "    print(x)\n",
+    "                "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "33800d41-ef80-4771-abe3-78c1fa6731ea",
+   "metadata": {
+    "editable": true,
+    "slideshow": {
+     "slide_type": ""
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import mysql.connector\n",
+    "mydb = mysql.connector.connect(\n",
+    "    host= \"localhost\",\n",
+    "    port = 3306,\n",
+    "    user=\"root\",\n",
+    "    password=\"Sajan@123\"\n",
+    ")\n",
+    "mycursor= mydb.cursor()\n",
+    "mycursor.execute(\"CREATE DATABASE IF NOT EXISTS test2\")\n",
+    "mydb.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "046644ff-62bf-4092-94f5-dbf517760b39",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "34e400d6-35cf-49aa-9883-a2981e255ddf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    " import mysql.connector\n",
+    "mydb = mysql.connector.connect(\n",
+    "    host= \"localhost\",\n",
+    "    port = 3306,\n",
+    "    user=\"root\",\n",
+    "    password=\"Sajan@123\"\n",
+    ")\n",
+    "mycursor= mydb.cursor()\n",
+    "mycursor.execute(\"CREATE TABLE IF NOT EXISTS test2.table_test (c1 INT , c2 FLOAT , c3 VARCHAR(100))\")\n",
+    "mydb.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8e645c16-314e-48c0-9895-cab274a04f70",
+   "metadata": {},
+   "source": [
+    "❌ Ye galat hai:\n",
+    "\n",
+    "c3 VARCHAR()\n",
+    "\n",
+    "\n",
+    "✅ Ye sahi hai:\n",
+    "\n",
+    "c3 VARCHAR(100) legent den hoga\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "ce5baf00-f7dd-4a15-9b49-7733c586d63e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    " import mysql.connector\n",
+    "mydb = mysql.connector.connect(\n",
+    "    host= \"localhost\",\n",
+    "    port = 3306,\n",
+    "    user=\"root\",\n",
+    "    password=\"Sajan@123\"\n",
+    ")\n",
+    "mycursor= mydb.cursor()\n",
+    "mycursor.execute(\"insert into test2.table_test values(123 , 125.5 , 'sajan')\")\n",
+    "mydb.commit()\n",
+    "\n",
+    "mydb.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "4b83369d-d58b-4d99-9eef-f4f7b830ccb2",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "(123, 125.5, 'sajan')\n"
+     ]
+    }
+   ],
+   "source": [
+    " import mysql.connector\n",
+    "mydb = mysql.connector.connect(\n",
+    "    host= \"localhost\",\n",
+    "    port = 3306,\n",
+    "    user=\"root\",\n",
+    "    password=\"Sajan@123\"\n",
+    ")\n",
+    "mycursor= mydb.cursor()\n",
+    "mycursor.execute(\"select * from test2.table_test\")\n",
+    "for i in mycursor.fetchall():\n",
+    "    \n",
+    "    print(i)\n",
+    "mydb.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "9c0006fd-53bb-459a-a4db-277ffb592432",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    " import mysql.connector\n",
+    "mydb = mysql.connector.connect(\n",
+    "    host= \"localhost\",\n",
+    "    port = 3306,\n",
+    "    user=\"root\",\n",
+    "    password=\"Sajan@123\"\n",
+    ")\n",
+    "mycursor= mydb.cursor()\n",
+    "mycursor.execute(\"insert into test2.table_test values(123 , 125.5 , 'sajan')\") \n",
+    "mycursor.execute(\"insert into test2.table_test values(123 , 125.5 , 'sajan')\") \n",
+    "mycursor.execute(\"insert into test2.table_test values(123 , 125.5 , 'sajan')\")\n",
+    "mycursor.execute(\"insert into test2.table_test values(123 , 125.5 , 'sajan')\")\n",
+    "mycursor.execute(\"insert into test2.table_test values(123 , 125.5 , 'sajan')\")\n",
+    "mycursor.execute(\"insert into test2.table_test values(123 , 125.5 , 'sajan')\")\n",
+    "mycursor.execute(\"insert into test2.table_test values(123 , 125.5 , 'sajan')\")\n",
+    "  \n",
+    "\n",
+    "mydb.commit()\n",
+    "\n",
+    "mydb.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "968c578c-dbf2-4c7c-b94e-4c1213cdca26",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "(123, 125.5, 'sajan')\n",
+      "(123, 125.5, 'sajan')\n",
+      "(123, 125.5, 'sajan')\n",
+      "(123, 125.5, 'sajan')\n",
+      "(123, 125.5, 'sajan')\n",
+      "(123, 125.5, 'sajan')\n",
+      "(123, 125.5, 'sajan')\n",
+      "(123, 125.5, 'sajan')\n"
+     ]
+    }
+   ],
+   "source": [
+    " import mysql.connector\n",
+    "mydb = mysql.connector.connect(\n",
+    "    host= \"localhost\",\n",
+    "    port = 3306,\n",
+    "    user=\"root\",\n",
+    "    password=\"Sajan@123\"\n",
+    ")\n",
+    "mycursor= mydb.cursor()\n",
+    "mycursor.execute(\"select * from test2.table_test\")\n",
+    "for i in mycursor.fetchall():\n",
+    "    \n",
+    "    print(i)\n",
+    "mydb.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "f96578af-159e-47c8-ae69-4e36d83ab051",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "(123, 'sajan')\n",
+      "(123, 'sajan')\n",
+      "(123, 'sajan')\n",
+      "(123, 'sajan')\n",
+      "(123, 'sajan')\n",
+      "(123, 'sajan')\n",
+      "(123, 'sajan')\n",
+      "(123, 'sajan')\n"
+     ]
+    }
+   ],
+   "source": [
+    " import mysql.connector\n",
+    "mydb = mysql.connector.connect(\n",
+    "    host= \"localhost\",\n",
+    "    port = 3306,\n",
+    "    user=\"root\",\n",
+    "    password=\"Sajan@123\"\n",
+    ")\n",
+    "mycursor= mydb.cursor()\n",
+    "mycursor.execute(\"select c1 , c3 from test2.table_test\")\n",
+    "for i in mycursor.fetchall():\n",
+    "    \n",
+    "    print(i)\n",
+    "mydb.close()"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python (booksenv)",
+   "language": "python",
+   "name": "booksenv"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.13"
+  },
+  "toc": {
+   "base_numbering": 0
+  },
+  "widgets": {
+   "application/vnd.jupyter.widget-state+json": {
+    "state": {},
+    "version_major": 2,
+    "version_minor": 0
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
